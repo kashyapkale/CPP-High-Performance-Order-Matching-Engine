@@ -1,0 +1,221 @@
+# Build Artifacts
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Executables
+order_matching_engine
+/order_matching_engine
+/build/order_matching_engine
+
+# Build Directories
+build/
+Build/
+BUILD/
+debug/
+Debug/
+DEBUG/
+release/
+Release/
+RELEASE/
+out/
+Out/
+OUT/
+
+# CMake Generated Files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+.cmake/
+
+# IDE and Editor Files
+# Visual Studio
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vcproj
+*.vcproj.user
+*.sln
+*.suo
+*.user
+*.aps
+*.pch
+*.pdb
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.ipdb
+*.idb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds/
+*.pidb
+*.log
+*.svclog
+*.scc
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# CLion
+.idea/
+cmake-build-*/
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM/
+*.xcworkspace
+
+# Qt Creator
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+*.qrc.cpp
+CMakeLists.txt.user*
+*.autosave
+
+# KDevelop
+*.kdev4
+.kdev4/
+
+# CodeBlocks
+*.depend
+*.layout
+
+# Codelite
+*.session
+*.workspace
+.codelite/
+
+# Dev-Cpp
+*.dev
+
+# Temporary Files
+*~
+*.swp
+*.swo
+*tmp*
+temp/
+tmp/
+
+# OS Generated Files
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.fseventsd
+.TemporaryItems
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.nfs*
+
+# Logs and Debug Files
+*.log
+*.tlog
+*.lastbuildstate
+debug.txt
+execution_log.txt
+partial_output.txt
+test_output.txt
+benchmark_results.txt
+perf.data
+perf.data.old
+callgrind.out.*
+cachegrind.out.*
+massif.out.*
+
+# Profiling and Performance Tools
+gmon.out
+profile.*
+*.gcov
+*.gcda
+*.gcno
+coverage.info
+lcov.info
+
+# Static Analysis
+cppcheck.xml
+scan-build-*/
+
+# Package Managers
+vcpkg/
+conan/
+.conan/
+
+# Testing Frameworks
+Testing/
+tests/build/
+test_results/
+googletest-*
+catch2-*
+
+# Documentation Generated
+doc/html/
+doc/latex/
+doc/xml/
+doxygen_sqlite3.db
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Core Dumps
+core
+core.*
+vgcore.*
+
+# Custom Project Files (Optional)
+# Uncomment if you want to ignore specific project files
+# benchmark_data/
+# performance_logs/
+# custom_configs/
