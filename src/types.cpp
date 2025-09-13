@@ -3,7 +3,9 @@
 namespace OrderBook {
 
 Order::Order() noexcept 
-    : order_id(0), side(Side::BUY), price(0), quantity(0), next(nullptr), prev(nullptr) {}
+    : order_id(0), side(Side::BUY), order_type(OrderType::LIMIT), price(0), 
+      quantity(0), original_quantity(0), status(OrderStatus::PENDING),
+      next(nullptr), prev(nullptr) {}
 
 PriceLevel::PriceLevel() noexcept 
     : total_volume(0), head(nullptr), tail(nullptr) {}

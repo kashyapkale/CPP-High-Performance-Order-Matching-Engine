@@ -25,6 +25,20 @@ enum class CommandType : uint8_t {
     CANCEL
 };
 
+enum class OrderType : uint8_t {
+    LIMIT,      // Regular limit order  
+    IOC,        // Immediate or Cancel
+    FOK         // Fill or Kill
+};
+
+enum class OrderStatus : uint8_t {
+    PENDING,
+    PARTIAL_FILL,
+    FILLED,
+    CANCELLED,
+    REJECTED
+};
+
 // Forward declarations
 struct Order;
 struct PriceLevel;
@@ -36,8 +50,11 @@ class MatchingEngine;
 struct Order {
     uint64_t order_id;
     Side side;
+    OrderType order_type;
     int64_t price;
     uint64_t quantity;
+    uint64_t original_quantity;  // For tracking partial fills
+    OrderStatus status;
     std::chrono::high_resolution_clock::time_point timestamp;
     
     // Intrusive linked list pointers
@@ -51,6 +68,7 @@ struct Command {
     CommandType type;
     uint64_t order_id;
     Side side;
+    OrderType order_type;
     int64_t price;
     uint64_t quantity;
     std::chrono::high_resolution_clock::time_point producer_timestamp;
