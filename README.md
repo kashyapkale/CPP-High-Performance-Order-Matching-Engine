@@ -5,10 +5,10 @@ An ultra-low latency, lock-free limit order matching engine implementation in mo
 ## Version History & Performance Evolution
 
 ### V2.0 (Enhanced Enterprise Edition) - Current
-**🎯 Target: Sub-100ns P50 latency with enterprise features**
+** Target: Sub-100ns P50 latency with enterprise features**
 
 ### V1.0 (Core Engine) - Baseline
-**🎯 Target: Sub-300ns P50 latency with basic functionality**
+** Target: Sub-300ns P50 latency with basic functionality**
 
 ## Architecture Overview 
 
@@ -42,7 +42,7 @@ An ultra-low latency, lock-free limit order matching engine implementation in mo
 | **Memory Efficiency** | Single pool | **NUMA-aware** | **40% better locality** |
 | **Feature Set** | Basic matching | **Enterprise-grade** | **6x more features** |
 
-### 🚀 V2.0 Performance Optimizations
+###  V2.0 Performance Optimizations
 
 1. **NUMA-Aware Memory Management**: 40% reduction in memory access latency
 2. **Enhanced Order Types**: IOC/FOK processing with 15% less overhead  
@@ -50,11 +50,11 @@ An ultra-low latency, lock-free limit order matching engine implementation in mo
 4. **Market Data Pipeline**: Real-time L2 publishing with minimal impact
 5. **Advanced Matching Logic**: Optimized algorithm paths for different order types
 
-## 🏗️ Enterprise Features (V2.0)
+##  Enterprise Features (V2.0)
 
-### ✅ **Completed Enhancements**
+###  **Completed Enhancements**
 
-#### 🧪 **Comprehensive Unit Test Suite**
+####  **Comprehensive Unit Test Suite**
 - **Coverage**: 95%+ code coverage with Google Test framework
 - **Test Categories**: Unit tests, integration tests, performance benchmarks
 - **Validation**: Order matching correctness, memory safety, concurrency
@@ -63,7 +63,7 @@ An ultra-low latency, lock-free limit order matching engine implementation in mo
 cd build && make run_tests
 ```
 
-#### 🏢 **Multiple Instrument Support**
+####  **Multiple Instrument Support**
 - **Architecture**: Separate order books per instrument with shared memory pools
 - **Performance**: Zero cross-contamination between instruments
 - **Scalability**: Support for 1000+ concurrent instruments
@@ -73,7 +73,7 @@ engine.add_instrument(Instrument(1, "AAPL", 1, 1, 1000, 200000));
 engine.add_instrument(Instrument(2, "MSFT", 1, 1, 2000, 400000));
 ```
 
-#### 📊 **Level 2 Market Data Output**
+####  **Level 2 Market Data Output**
 - **Real-time**: Sub-microsecond L2 snapshot generation
 - **Publishers**: Console, File, Network-ready interface
 - **Data**: 20-level depth, order counts, volume aggregation
@@ -83,7 +83,7 @@ manager.add_publisher(std::make_unique<ConsoleMarketDataPublisher>());
 manager.add_publisher(std::make_unique<FileMarketDataPublisher>("market_data"));
 ```
 
-#### ⚡ **Advanced Order Types (IOC/FOK)**
+####  **Advanced Order Types (IOC/FOK)**
 - **IOC (Immediate or Cancel)**: Execute immediately, cancel remainder
 - **FOK (Fill or Kill)**: Execute completely or reject entirely
 - **Performance**: Same latency as regular orders with enhanced logic
@@ -96,7 +96,7 @@ Command fok_order;
 fok_order.order_type = OrderType::FOK;  // Fill or Kill
 ```
 
-#### 🛡️ **Risk Management & Position Limits**
+####  **Risk Management & Position Limits**
 - **Pre-trade Checks**: Position limits, order size, exposure limits
 - **Rate Limiting**: Per-account order/cancel rate controls
 - **Real-time Monitoring**: Sub-20ns risk check latency
@@ -110,7 +110,7 @@ limits.max_orders_per_second = 1000;
 risk_manager.add_account("TRADER_001", limits);
 ```
 
-#### 🖥️ **NUMA-Aware Memory Allocation**
+####  **NUMA-Aware Memory Allocation**
 - **Multi-socket Optimization**: Thread-local memory allocation per NUMA node
 - **Performance**: 40% reduction in memory access latency on multi-socket systems
 - **Scalability**: Linear scaling across NUMA nodes
