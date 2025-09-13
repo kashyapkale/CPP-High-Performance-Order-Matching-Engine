@@ -346,7 +346,3 @@ Risk Check Latency: <20 ns
 - [ ] **Compliance**: Regulatory reporting and audit trails
 
 ---
-
-**🧪 Generated with [Claude Code](https://claude.ai/code)**
-
-**Co-Authored-By: Claude <noreply@anthropic.com>**
