@@ -173,11 +173,11 @@ void MatchingEngine::match_against_bids(Order* sell_order, const std::chrono::hi
 void MatchingEngine::execute_trade(uint64_t aggressor_id, uint64_t resting_id, int64_t price, 
                   uint64_t quantity, const std::chrono::high_resolution_clock::time_point& processing_start) noexcept {
     
-    // Calculate latency from producer timestamp to trade execution
+    // Calculate latency from processing start to trade execution
     const auto latency_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
-        processing_start - std::chrono::high_resolution_clock::now()).count();
-    
-    trade_latencies_ns_.push_back(std::abs(latency_ns));  // Use abs to handle clock skew
+        std::chrono::high_resolution_clock::now() - processing_start).count();
+
+    trade_latencies_ns_.push_back(latency_ns);
     
     // Update statistics
     ++trades_executed_;
