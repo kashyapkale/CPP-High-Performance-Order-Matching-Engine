@@ -378,14 +378,16 @@ private:
     std::vector<long long> trade_latencies_ns_;
     uint64_t orders_processed_;
     uint64_t trades_executed_;
+    uint64_t orders_rejected_;
     uint64_t total_buy_quantity_matched_;
     uint64_t total_sell_quantity_matched_;
     
 public:
     MatchingEngine(SPSCRingBuffer* ring_buffer) 
         : order_pool_(MAX_ORDERS), ring_buffer_(ring_buffer), 
-          order_map_(MAX_ORDERS, nullptr), orders_processed_(0), 
-          trades_executed_(0), total_buy_quantity_matched_(0), 
+          order_map_(MAX_ORDERS, nullptr), orders_processed_(0),
+          trades_executed_(0), orders_rejected_(0),
+          total_buy_quantity_matched_(0),
           total_sell_quantity_matched_(0) {
         
         trade_latencies_ns_.reserve(TOTAL_ORDERS_TO_GENERATE / 10);  // Estimate 10% will trade
@@ -417,6 +419,7 @@ public:
     // Getters for statistics
     uint64_t orders_processed() const noexcept { return orders_processed_; }
     uint64_t trades_executed() const noexcept { return trades_executed_; }
+    uint64_t orders_rejected() const noexcept { return orders_rejected_; }
     const std::vector<long long>& trade_latencies() const noexcept { return trade_latencies_ns_; }
     uint64_t total_buy_quantity_matched() const noexcept { return total_buy_quantity_matched_; }
     uint64_t total_sell_quantity_matched() const noexcept { return total_sell_quantity_matched_; }
@@ -427,7 +430,11 @@ private:
      */
     void handle_new_order(const Command& cmd, const std::chrono::high_resolution_clock::time_point& processing_start) noexcept {
         Order* order = order_pool_.allocate();
-        if (!order) return;  // Pool exhausted
+        if (!order) {
+            ++orders_rejected_;
+            std::cerr << "WARNING: Order pool exhausted, rejecting order_id=" << cmd.order_id << "\n";
+            return;
+        }
         
         // Initialize order
         order->order_id = cmd.order_id;
@@ -711,6 +718,7 @@ int main() {
     std::cout << "\n=== BENCHMARK RESULTS ===\n";
     std::cout << "Total run time: " << total_duration.count() << " ms\n";
     std::cout << "Orders processed: " << orders_processed << "\n";
+    std::cout << "Orders rejected (pool exhausted): " << matching_engine.orders_rejected() << "\n";
     std::cout << "Orders per second: " << static_cast<uint64_t>(orders_per_second) << "\n";
     std::cout << "Trades executed: " << trades_executed << "\n";
     

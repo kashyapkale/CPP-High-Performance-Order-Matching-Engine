@@ -54,6 +54,7 @@ int main() {
     std::cout << "\n=== BENCHMARK RESULTS ===\n";
     std::cout << "Total run time: " << total_duration.count() << " ms\n";
     std::cout << "Orders processed: " << orders_processed << "\n";
+    std::cout << "Orders rejected (pool exhausted): " << matching_engine.orders_rejected() << "\n";
     std::cout << "Orders per second: " << static_cast<uint64_t>(orders_per_second) << "\n";
     std::cout << "Trades executed: " << trades_executed << "\n";
     

@@ -29,6 +29,7 @@ private:
     std::vector<long long> trade_latencies_ns_;
     uint64_t orders_processed_;
     uint64_t trades_executed_;
+    uint64_t orders_rejected_;
     uint64_t total_buy_quantity_matched_;
     uint64_t total_sell_quantity_matched_;
     
@@ -52,6 +53,7 @@ public:
     // Getters for statistics
     uint64_t orders_processed() const noexcept;
     uint64_t trades_executed() const noexcept;
+    uint64_t orders_rejected() const noexcept;
     const std::vector<long long>& trade_latencies() const noexcept;
     uint64_t total_buy_quantity_matched() const noexcept;
     uint64_t total_sell_quantity_matched() const noexcept;

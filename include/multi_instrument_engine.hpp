@@ -48,6 +48,7 @@ private:
     std::vector<long long> trade_latencies_ns_;
     uint64_t orders_processed_;
     uint64_t total_trades_executed_;
+    uint64_t orders_rejected_;
     
 public:
     explicit MultiInstrumentEngine(SPSCRingBuffer* ring_buffer);
@@ -75,6 +76,7 @@ public:
     // Statistics getters
     uint64_t orders_processed() const noexcept;
     uint64_t total_trades_executed() const noexcept;
+    uint64_t orders_rejected() const noexcept;
     uint64_t trades_for_instrument(uint32_t instrument_id) const noexcept;
     uint64_t volume_for_instrument(uint32_t instrument_id) const noexcept;
     const std::vector<long long>& trade_latencies() const noexcept;

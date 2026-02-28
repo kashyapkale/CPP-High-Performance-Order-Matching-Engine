@@ -8,8 +8,9 @@ MultiInstrumentEngine::MultiInstrumentEngine(SPSCRingBuffer* ring_buffer)
     : order_pool_(std::make_unique<OrderPool>(MAX_ORDERS)), 
       ring_buffer_(ring_buffer),
       order_map_(MAX_ORDERS, {nullptr, 0}),
-      orders_processed_(0), 
-      total_trades_executed_(0) {
+      orders_processed_(0),
+      total_trades_executed_(0),
+      orders_rejected_(0) {
     
     trade_latencies_ns_.reserve(TOTAL_ORDERS_TO_GENERATE / 10);
 }
@@ -83,6 +84,10 @@ uint64_t MultiInstrumentEngine::total_trades_executed() const noexcept {
     return total_trades_executed_;
 }
 
+uint64_t MultiInstrumentEngine::orders_rejected() const noexcept {
+    return orders_rejected_;
+}
+
 uint64_t MultiInstrumentEngine::trades_for_instrument(uint32_t instrument_id) const noexcept {
     auto it = trades_per_instrument_.find(instrument_id);
     return (it != trades_per_instrument_.end()) ? it->second : 0;
@@ -110,7 +115,11 @@ void MultiInstrumentEngine::handle_new_order(const MultiInstrumentCommand& cmd,
     }
     
     Order* order = order_pool_->allocate();
-    if (!order) return; // Pool exhausted
+    if (!order) {
+        ++orders_rejected_;
+        std::cerr << "WARNING: Order pool exhausted, rejecting order_id=" << cmd.order_id << "\n";
+        return;
+    }
     
     // Initialize order
     order->order_id = cmd.order_id;

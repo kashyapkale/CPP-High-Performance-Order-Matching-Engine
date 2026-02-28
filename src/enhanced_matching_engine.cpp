@@ -6,8 +6,9 @@ namespace OrderBook {
 
 EnhancedMatchingEngine::EnhancedMatchingEngine(SPSCRingBuffer* ring_buffer) 
     : order_pool_(MAX_ORDERS), ring_buffer_(ring_buffer),
-      order_map_(MAX_ORDERS, nullptr), orders_processed_(0), 
-      trades_executed_(0), total_buy_quantity_matched_(0), 
+      order_map_(MAX_ORDERS, nullptr), orders_processed_(0),
+      trades_executed_(0), orders_rejected_(0),
+      total_buy_quantity_matched_(0),
       total_sell_quantity_matched_(0) {
     
     trade_latencies_ns_.reserve(TOTAL_ORDERS_TO_GENERATE / 10);
@@ -46,6 +47,10 @@ uint64_t EnhancedMatchingEngine::orders_processed() const noexcept {
 
 uint64_t EnhancedMatchingEngine::trades_executed() const noexcept {
     return trades_executed_;
+}
+
+uint64_t EnhancedMatchingEngine::orders_rejected() const noexcept {
+    return orders_rejected_;
 }
 
 const std::vector<long long>& EnhancedMatchingEngine::trade_latencies() const noexcept {
@@ -126,7 +131,9 @@ Level2Snapshot EnhancedMatchingEngine::create_level2_snapshot() const noexcept {
 void EnhancedMatchingEngine::handle_new_order(const Command& cmd, const std::chrono::high_resolution_clock::time_point& processing_start) noexcept {
     Order* order = order_pool_.allocate();
     if (!order) {
-        return; // Pool exhausted
+        ++orders_rejected_;
+        std::cerr << "WARNING: Order pool exhausted, rejecting order_id=" << cmd.order_id << "\n";
+        return;
     }
     
     // Initialize order
